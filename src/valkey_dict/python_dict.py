@@ -36,7 +36,7 @@ class PythonValkeyDict(ValkeyDict):
                  namespace: str = 'main',
                  expire: Union[int, timedelta, None] = None,
                  preserve_expiration: Optional[bool] = False,
-                 valkey: "Optional[StrictValkey[Any]]" = None,
+                 valkey: "Optional[StrictRedis[Any]]" = None,
                  **valkey_kwargs: Any) -> None:  # noqa: D202 pydocstyle clashes with Sphinx
         """
         Initialize a ValkeyDict instance.

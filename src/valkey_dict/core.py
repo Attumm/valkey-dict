@@ -45,7 +45,7 @@ class ValkeyDict:
              namespace: str = 'main',
              expire: Union[int, timedelta, None] = None,
              preserve_expiration: Optional[bool] = False,
-             valkey: "Optional[StrictValkey[Any]]" = None,
+             valkey: "Optional[StrictRedis[Any]]" = None,
              raise_key_error_delete: bool = False,
              **valkey_kwargs: Any) -> None:  # noqa: D202:R0913 pydocstyle clashes with Sphinx
         """
