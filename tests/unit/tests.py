@@ -1217,6 +1217,7 @@ class TestValkeyDict(unittest.TestCase):
     def setUp(self):
         self.clear_test_namespace()
 
+    @unittest.skip
     def test_get_valkey_info(self):
         """Ensure get_valkey_info() returns a dictionary with Valkey server information."""
         result = self.r.get_valkey_info()

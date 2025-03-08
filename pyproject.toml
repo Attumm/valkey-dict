@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "valkey-dict"
-version = "0.1.0"
+version = "0.2.0"
 description = "Dictionary with Valkey as storage backend"
 authors = [
     {name = "Melvin Bijman", email = "bijman.m.m@gmail.com"},
@@ -14,7 +14,7 @@ readme = "README.md"
 requires-python = ">=3.8"
 license = {text = "MIT"}
 dependencies = [
-    "redis>=4.0.0",
+    "redis>=4.5.4",
 ]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
