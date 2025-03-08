@@ -14,7 +14,7 @@ readme = "README.md"
 requires-python = ">=3.8"
 license = {text = "MIT"}
 dependencies = [
-    "valkey>=4.0.0",
+    "redis>==4.5.4",
 ]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
