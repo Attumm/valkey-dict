@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "valkey-dict"
-version = "0.1.0"
+version = "0.2.0"
 description = "Dictionary with Valkey as storage backend"
 authors = [
     {name = "Melvin Bijman", email = "bijman.m.m@gmail.com"},
