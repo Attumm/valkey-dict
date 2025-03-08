@@ -1,4 +1,4 @@
-name: Supports Valkey
+name: Supports Redis
 
 on:
   pull_request:
