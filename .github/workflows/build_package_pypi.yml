@@ -1,0 +1,75 @@
+name: Build and Upload to PyPI
+
+on:
+  push:
+    tags:
+      - 'v*'
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  build-and-test:
+    services:
+      valkey:
+        image: valkey
+        ports:
+          - 6379:6379
+
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Setup virtual environment
+      run: |
+        python3 -m venv .venv_build
+        source .venv_build/bin/activate
+        pip install --upgrade pip
+
+    - name: Install dependencies
+      run: |
+        python -m pip install -e ".[dev,build]"
+
+    - name: Run quality checks
+      run: |
+        python -m mypy
+        darglint src/valkey_dict/
+        python -m pylama -i E501,E231 src
+        python -m unittest discover -s tests
+
+    - name: Run Security check
+      run: |
+        bandit -r src/valkey_dict
+
+    - name: Build package
+      run: python -m build
+
+    - name: Store distribution packages
+      uses: actions/upload-artifact@v4
+      with:
+        name: python-package-distributions
+        path: dist/
+        retention-days: 1
+
+  publish-to-pypi:
+    needs: [build-and-test]
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+
+    steps:
+    - name: Download all the dists
+      uses: actions/download-artifact@v4
+      with:
+        name: python-package-distributions
+        path: dist/
+    - name: Publish to PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        password: ${{ secrets.PYPI_API_TOKEN }}
